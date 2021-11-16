@@ -1,0 +1,28 @@
+{
+    "users": [
+        {
+            "name": "Nikolai Prinko",
+            "years": 22,
+            "image": "https://icdn.lenta.ru/images/2020/09/23/11/20200923115707206/square_1280_webp_8557a23b121ef7f8926cb6916a5a55c4.webp",
+            "id": 1
+        },
+        {
+            "name": "John Smith",
+            "years": 32,
+            "image": "https://vjoy.cc/wp-content/uploads/2020/10/1132239.jpg",
+            "id": 2
+        },
+        {
+            "name": "Anastasia Miller",
+            "years": 18,
+            "image": "https://static.ngs.ru/news/99/preview/4f722eb86f83e791bc7970754eb1ffea030345a3_599_399_c.jpg",
+            "id": 3
+        },
+        {
+            "name": "Anne Brown",
+            "years": 25,
+            "image": "https://i.pinimg.com/736x/b4/72/a1/b472a1234f0fad2a6bd45750c14e7bec.jpg",
+            "id": 4
+        }
+    ]
+}

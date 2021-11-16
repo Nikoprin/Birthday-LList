@@ -1,0 +1,10 @@
+.select {
+    margin: 20px 0;
+    text-align: left;
+}
+.select select {
+    padding: 15px 10px;
+    border: 1px solid gray;
+    font-size: 15px;
+    outline: none;
+}
