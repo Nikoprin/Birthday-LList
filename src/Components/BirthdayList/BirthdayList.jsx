@@ -1,11 +1,12 @@
-import React, { useState, useMemo } from "react";
+import React, { useState } from "react";
 import Button from "../UI/Button/Button";
-import Input from "../UI/Input/Input";
 import Modal from "../UI/Modal/Modal";
 import classes from "./BirthdayList.module.css";
 import BirthdayUser from "./BirthdayUser/BirthdayUser";
-import Select from "../UI/Select/Select";
 import BirthdayForm from "../BirthdayForm/BirthdayForm";
+import BirthdayFilter from "../BirthdayFilter/BirthdayFilter";
+import { CSSTransition, TransitionGroup } from "react-transition-group";
+import { useUsers } from "../../Hooks/useUsers";
 export default function BirthdayList({
   users,
   active,
@@ -13,31 +14,16 @@ export default function BirthdayList({
   addNewUser,
   remove,
 }) {
-  ///// Тип сортировки
-  const [sortType, setSortType] = useState("");
-  ////// Поиск
-  const [searchQuery, setSearchQuery] = useState("");
-  /////// Открываем модальное окно с формой для ввода
+  //// Фильтры поиска и сортировки
+  const [filter, setFilter] = useState({ sort: "", query: "" });
+  //// Открываем модальное окно
   const [modal, setModal] = useState(false);
   const addClassActive = [classes.birthdayList];
+  const getSortedAndSearchedUsers = useUsers(users, filter.sort, filter.query);
   if (active) {
     addClassActive.push(classes.active);
   }
   ///// Сортируем массив
-  const sortedUsers = useMemo(() => {
-    if (sortType) {
-      return [...users].sort((a, b) => a[sortType].localeCompare(b[sortType]));
-    }
-    return users;
-  }, [sortType, users]);
-  const getSortedAndSearchedUsers = useMemo(() => {
-    return sortedUsers.filter((user) =>
-      user.name.toLowerCase().includes(searchQuery.toLowerCase())
-    );
-  }, [searchQuery, sortedUsers]);
-  const sortUsers = (type) => {
-    setSortType(type);
-  };
   return (
     <div className={addClassActive.join(" ")}>
       <p className={classes.closeBtn} onClick={() => setActive(false)}>
@@ -48,29 +34,16 @@ export default function BirthdayList({
       ) : (
         <h1 style={{ textAlign: "center" }}>Список имениников</h1>
       )}
-      <Select
-        defaultValue="Sort by"
-        options={[
-          {
-            value: "name",
-            body: "Sort by name",
-          },
-          {
-            value: "age",
-            body: "Sort by age",
-          },
-        ]}
-        value={sortType}
-        onChange={sortUsers}
-      />
-      <Input
-        placeholder="Search..."
-        value={searchQuery}
-        onChange={(event) => setSearchQuery(event.target.value)}
-      />
-      {getSortedAndSearchedUsers.map((user) => {
-        return <BirthdayUser user={user} remove={remove} key={user.id} />;
-      })}
+      <BirthdayFilter filter={filter} setFilter={setFilter} />
+      <TransitionGroup>
+        {getSortedAndSearchedUsers.map((user) => {
+          return (
+            <CSSTransition key={user.id} timeout={500} classNames="event">
+              <BirthdayUser user={user} remove={remove} key={user.id} />
+            </CSSTransition>
+          );
+        })}
+      </TransitionGroup>
       <Button onClick={() => setModal(true)}>Add New Birthday</Button>
       <Modal active={modal} setActive={setModal}>
         <BirthdayForm addNewUser={addNewUser} setModal={setModal} />

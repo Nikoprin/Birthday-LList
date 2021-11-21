@@ -1,17 +1,17 @@
-import React, {useState} from "react";
-import BirthdayIcon from '../Images/birthday.png';
-import Input from '../UI/Input/Input';
-import Button from '../UI/Button/Button';
-function BirthdayForm({addNewUser, setModal}) {
-    const [user, setUser] = useState({ name: "", age: "" });
-    const addNewBirthday = () => {
-        const newUser = {
-          ...user,
-          id: Date.now(),
-        };
-        addNewUser(newUser);
-        setModal(false);
-      };
+import React, { useState } from "react";
+import BirthdayIcon from "../Images/birthday.png";
+import Input from "../UI/Input/Input";
+import Button from "../UI/Button/Button";
+function BirthdayForm({ addNewUser, setModal }) {
+  const [user, setUser] = useState({ name: "", age: "" });
+  const addNewBirthday = () => {
+    const newUser = {
+      ...user,
+      id: Date.now(),
+    };
+    addNewUser(newUser);
+    setModal(false);
+  };
   return (
     <div>
       <img

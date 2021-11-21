@@ -13,6 +13,21 @@ body {
     align-items: center;
     text-align: center;
 }
+.event-enter {
+  opacity: 0;
+}
+.event-enter-active {
+  opacity: 1;
+  transition: all 500ms ease-in;
+}
+.event-exit {
+  opacity: 1;
+}
+.event-exit-active {
+  opacity: 0;
+  transition: all 500ms ease-in;
+}
+
 select {
   -webkit-appearance: none;
   -moz-appearance: none;
